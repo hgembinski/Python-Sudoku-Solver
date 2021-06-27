@@ -6,16 +6,19 @@ from tkinter import *
 def main():
     build_ui()
 
+#function to build the main sudoku UI screen
 def build_ui():
     root = tkinter.Tk()
     root.title("Sudoku Solver")
     root.geometry("433x575")
     root.configure(background = 'light blue')
-    title = Label(root,text = "PYTHON SUDOKU SOLVER", bg = 'light blue', font = (None, 20)).grid(row = 0, column = 0, columnspan = 10)
-    instructions = Label(root, text = "Input your numbers and then click Go!", bg = 'light blue', font = (None, 15)).grid(row = 1,column = 0, columnspan = 10)
+    title = Label(root,text = "PYTHON SUDOKU SOLVER", bg = 'light blue', 
+            font = (None, 20)).grid(row = 0, column = 0, columnspan = 10)
+    instructions = Label(root, text = "Input your numbers and then click Go!", bg = 'light blue', 
+            font = (None, 15)).grid(row = 1,column = 0, columnspan = 10)
 
-    grid = {}
-    entries = []
+    frames = {}
+    entries = {}
 
     for row in range(2, 11):
         for column in range(1, 10):
@@ -28,15 +31,15 @@ def build_ui():
                 color = 'white'
             
             #create grid cells
-            cell = Frame(root, highlightbackground=color,
-                         highlightcolor=color, highlightthickness=2,
-                         width=50, height=50,  padx=5,  pady=5, background='black')
+            cell = Frame(root, highlightbackground = color,
+                         highlightcolor = color, highlightthickness = 2,
+                         width = 50, height = 50,  padx = 5,  pady = 5, background = 'black')
             cell.grid(row=row, column=column)
-            grid[(row, column)] = cell
+            frames[(row, column)] = cell
 
             #place entry objects in grid cells
-            e = Entry(grid[row, column],font = (None, 20), justify = CENTER, width = 2)
-            entries.append(e)
+            e = Entry(frames[row, column],font = (None, 20), justify = CENTER, width = 2)
+            entries[(row - 2, column - 1)] = e
             e.pack()
     
     #place buttons
@@ -49,9 +52,12 @@ def build_ui():
 
     root.mainloop()
 
+#clears the sudoku board
 def clear_UI(entries):
-    for item in entries:
-        item.delete(0, END)
+    for row in range(0,9):
+        for column in range (0,9):
+            if entries[row,column].get() != "":
+                entries[row,column].delete(0, END)
             
 
 
