@@ -5,7 +5,7 @@
 import SudokuGUI
 from SudokuGUI import *
 
-def main():
+def PlaySudoku():
     build_ui()
 
-main()
+PlaySudoku()
