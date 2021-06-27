@@ -29,38 +29,60 @@ def build_ui():
                 color = 'black'
 
             else:
-                color = 'white'
+                color = 'light blue'
             
-            #create grid cells
+            #create frames for sudoku board
             cell = Frame(root, highlightbackground = color,
                          highlightcolor = color, highlightthickness = 2,
                          width = 50, height = 50,  padx = 5,  pady = 5, background = 'black')
             cell.grid(row=row, column=column)
             frames[(row, column)] = cell
 
-            #place entry objects in grid cells
+            #place entry objects in frame cells
             e = Entry(frames[row, column],font = (None, 20), justify = CENTER, width = 2)
             entries[(row - 2, column - 1)] = e
             e.pack()
     
     #place buttons
     go_button = Button(root, width = 5, bg = 'green', activebackground = 'light green', text = "Go!", 
-                        font = (None, 20)).grid(row = 12, column = 0, columnspan = 5)
+                        font = (None, 20), command = lambda : solve_button(entries)).grid(row = 12, column = 0, columnspan = 5)
 
     clear_button = Button(root, width = 5, bg = 'red', activebackground = 'pink', text = "Clear", 
-                        font = (None, 20), command = lambda : clear_UI(entries))
+                        font = (None, 20), command = lambda : clear_UI_button(entries))
     clear_button.grid(row = 12, column = 6, columnspan = 5)
 
     root.mainloop()
 
 #clears the sudoku board
-def clear_UI(entries):
+def clear_UI_button(entries):
     for row in range(0,9):
         for column in range (0,9):
+            entries[row,column].config(state='normal')
+            entries[row,column].config(disabledbackground = "white") #resets bg color
             if entries[row,column].get() != "":
                 entries[row,column].delete(0, END)
 
+#solves the sudoku puzzle
+def solve_button(entries):
+    puzzle = {}
 
+    #gets any inputted numbers from the UI and inserts them into the puzzle tuple (any blanks are replaced with 0)
+    for row in range(0,9):
+        for column in range (0,9):
+            if entries[row,column].get() == "":
+                puzzle[(row, column)] = 0
+                entries[row,column].insert(0, "0")
+            else:
+                puzzle[(row, column)] = entries[row,column].get()
+                entries[row,column].config(disabledbackground = "light green") #sets the bg color to green if it's an inputted number
+            entries[row,column].config(state='disabled')
+
+#debug function to print puzzle to console
+def print_puzzle(puzzle):
+    for row in range(0,9):
+        for column in range (0,9):
+            print(puzzle[(row, column)], end = " ")
+        print("")
             
 
 
