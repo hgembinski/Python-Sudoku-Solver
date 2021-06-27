@@ -1,5 +1,6 @@
 #Haiden Gembinski
-#Main file for Python Sudoku solver
+#Python Sudoku Solver using tkinter
+
 import tkinter
 from tkinter import *
 
@@ -58,6 +59,8 @@ def clear_UI(entries):
         for column in range (0,9):
             if entries[row,column].get() != "":
                 entries[row,column].delete(0, END)
+
+
             
 
 
