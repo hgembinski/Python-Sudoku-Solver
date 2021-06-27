@@ -1,5 +1,5 @@
 #Haiden Gembinski
-#Error handling & Debug functions for Python Sudoku solver
+#Error handling & Debug functionality for Python Sudoku solver
 
 #check if valid number
 def check_num(num):
