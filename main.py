@@ -15,6 +15,7 @@ def build_ui():
     instructions = Label(root, text = "Input your numbers and then click Go!", bg = 'light blue', font = (None, 15)).grid(row = 1,column = 0, columnspan = 10)
 
     grid = {}
+    entries = []
 
     for row in range(2, 11):
         for column in range(1, 10):
@@ -35,15 +36,24 @@ def build_ui():
 
             #place entry objects in grid cells
             e = Entry(grid[row, column],font = (None, 20), justify = CENTER, width = 2)
+            entries.append(e)
             e.pack()
     
     #place buttons
     go_button = Button(root, width = 5, bg = 'green', activebackground = 'light green', text = "Go!", 
-                        font = (None, 20)).grid(row = 12, column = 0, columnspan = 6)
+                        font = (None, 20)).grid(row = 12, column = 0, columnspan = 5)
 
     clear_button = Button(root, width = 5, bg = 'red', activebackground = 'pink', text = "Clear", 
-                        font = (None, 20)).grid(row = 12, column = 6, columnspan = 5)
+                        font = (None, 20), command = lambda : clear_UI(entries))
+    clear_button.grid(row = 12, column = 6, columnspan = 5)
 
     root.mainloop()
+
+def clear_UI(entries):
+    for item in entries:
+        item.delete(0, END)
+            
+
+
 
 main()
