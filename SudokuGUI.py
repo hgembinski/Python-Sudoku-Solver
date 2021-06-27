@@ -72,12 +72,4 @@ def solve_button(entries):
                 puzzle[(row, column)] = entries[row,column].get()
                 entries[row,column].config(disabledbackground = "light green") #sets the bg color to green if it's an inputted number
             entries[row,column].config(state='disabled')
-
-
-#debug function to print puzzle to console
-def print_puzzle(puzzle):
-    for row in range(0,9):
-        for column in range (0,9):
-            print(puzzle[(row, column)], end = " ")
-        print("")
         
