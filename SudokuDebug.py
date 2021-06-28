@@ -12,6 +12,12 @@ def check_num(num):
     except ValueError:
         return False
 
+#check if it's a valid puzzle ie no duplicate numbers
+def check_puzzle(puzzle):
+
+    return False
+
+
 #debug function to print puzzle to console
 def print_puzzle(puzzle):
     print()
