@@ -1,5 +1,7 @@
 #Haiden Gembinski
-#GUI functions for Python Sudoku Solver
+#GUI functionality for Python Sudoku Solver
+
+from SudokuMath import solve_sudoku
 import tkinter
 from tkinter import *
 import SudokuDebug
@@ -46,8 +48,7 @@ def build_ui():
                         font = (None, 20), command = lambda : solve_button(entries, root)).grid(row = 12, column = 0, columnspan = 5)
 
     clear_button = Button(root, width = 5, bg = 'red', activebackground = 'pink', text = "Clear", 
-                        font = (None, 20), command = lambda : clear_UI_button(entries))
-    clear_button.grid(row = 12, column = 6, columnspan = 5)
+                        font = (None, 20), command = lambda : clear_UI_button(entries)).grid(row = 12, column = 6, columnspan = 5)
 
     root.mainloop()
 
@@ -70,7 +71,7 @@ def solve_button(entries, root):
                 puzzle[(row, column)] = 0
             else:
                 if (check_num(entries[row,column].get())): #input validation
-                    puzzle[(row, column)] = entries[row,column].get()
+                    puzzle[(row, column)] = int(entries[row,column].get()) #insert each number as int in puzzle tuple
                     entries[row,column].config(background = "white", disabledbackground = "light green") #sets the bg color to green if it's an inputted number
                     entries[row,column].config(state='disabled')
                 else:
@@ -79,12 +80,14 @@ def solve_button(entries, root):
                     invalid_input_screen(root)
                     return
 
+    solve_sudoku(puzzle, root, entries)
+
 #re-enables the board and resets bg color of entry objects
 def enable_board(entries):
     for row in range(0,9):
         for column in range (0,9):
             entries[row,column].config(state='normal')
-            entries[row,column].config(disabledbackground = "white") #resets bg color
+            entries[row,column].config(background = "white", disabledbackground = "white") #resets bg color
 
 #Error screen for invalid puzzle input
 def invalid_input_screen(root):
@@ -100,6 +103,24 @@ def invalid_input_screen(root):
 
     error_label_1 = Label(error_screen, text = "Invalid Input", font = (None, 30), bg = "light blue", pady = 25).pack(fill = BOTH, side = TOP)
     error_label_2 = Label(error_screen, text = "Please Try Again", font = (None, 30), bg = "light blue", pady = 50).pack(fill = BOTH, side = TOP)
+    close_button = Button(error_screen, width = 5, text = "Close", font = (None, 30), bg = "royal blue", 
+                    command = lambda : error_close_button(error_screen)).pack(side = TOP)
+
+#error screen if puzzle is invalid
+def invalid_puzzle_screen(root):
+    error_screen = tkinter.Toplevel(root)
+    error_screen.title("Error!")
+
+    x = root.winfo_x()
+    y = root.winfo_y()
+    h = root.winfo_height()
+    w= root.winfo_width()
+    error_screen.geometry("%dx%d+%d+%d" % (w - 100, h - 200, x + 50,y +50))
+    error_screen.configure(background = "light blue")
+
+    error_label_1 = Label(error_screen, text = "Invalid Puzzle", font = (None, 30), bg = "light blue", pady = 25).pack(fill = BOTH, side = TOP)
+    error_label_2 = Label(error_screen, text = "Did you accidentally input a duplicate number?", 
+                    font = (None, 20), bg = "light blue", pady = 50).pack(fill = BOTH, side = TOP)
     close_button = Button(error_screen, width = 5, text = "Close", font = (None, 30), bg = "royal blue", 
                     command = lambda : error_close_button(error_screen)).pack(side = TOP)
 
