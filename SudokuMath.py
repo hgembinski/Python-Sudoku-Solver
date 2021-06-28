@@ -1,17 +1,17 @@
 #Haiden Gembinski
 #Math functionality for Python Sudoku solver
 
-#returns the solved puzzle
-from SudokuDebug import *
-from SudokuGUI import *
 
 
-def solve_sudoku(unsolved_puzzle, root, entries):
+def solve_sudoku(unsolved_puzzle, entries):
+    solve(unsolved_puzzle)
+
+    #print the correct solutions to the board
+    for row in range(0,9):
+        for column in range (0,9):
+                num = unsolved_puzzle[(row, column)]
+                entries[(row, column)].insert(0, str(num))
     
-    if check_puzzle(unsolved_puzzle, entries):
-        solve(unsolved_puzzle)
-    else:
-        invalid_puzzle_screen(root) #show error screen if puzzle is invalid
 
 
 #solves the sudoku puzzle
@@ -63,7 +63,7 @@ def valid_number(puzzle, num, position):
     #check the sudoku "box" that the number is in
     box_row = row // 3
     box_column = column // 3
-
+    
     for i in range(box_row*3, (box_row*3)+3):
         for j in range(box_column*3, (box_column*3)+3):
             if puzzle[i, j] == num and row != i and column != j:

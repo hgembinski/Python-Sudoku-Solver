@@ -80,7 +80,12 @@ def solve_button(entries, root):
                     invalid_input_screen(root)
                     return
 
-    solve_sudoku(puzzle, root, entries)
+    if check_puzzle(puzzle, entries):
+        solve_sudoku(puzzle, entries)
+        #disable_board(entries)
+
+    else:
+        invalid_puzzle_screen(root) #show error screen if puzzle is invalid
 
 #re-enables the board and resets bg color of entry objects
 def enable_board(entries):
@@ -119,8 +124,8 @@ def invalid_puzzle_screen(root):
     error_screen.configure(background = "light blue")
 
     error_label_1 = Label(error_screen, text = "Invalid Puzzle", font = (None, 30), bg = "light blue", pady = 25).pack(fill = BOTH, side = TOP)
-    error_label_2 = Label(error_screen, text = "Did you accidentally input a duplicate number?", 
-                    font = (None, 20), bg = "light blue", pady = 50).pack(fill = BOTH, side = TOP)
+    error_label_2 = Message(error_screen, text = "Did you accidentally input a duplicate number?", 
+                    font = (None, 20), bg = "light blue", justify = CENTER, pady = 30).pack(fill = BOTH, side = TOP)
     close_button = Button(error_screen, width = 5, text = "Close", font = (None, 30), bg = "royal blue", 
                     command = lambda : error_close_button(error_screen)).pack(side = TOP)
 

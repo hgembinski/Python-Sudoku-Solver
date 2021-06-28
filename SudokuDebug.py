@@ -31,17 +31,28 @@ def check_puzzle(puzzle, entries):
     for i in range(0, 9):
         for j in range(0,9):
             if puzzle[j,i] in nums: #if this number already exists in the column, return false
-                entries[i,j].config(background = "indianred3", disabledbackground = "indianred3")
+                entries[j,i].config(background = "indianred3", disabledbackground = "indianred3")
                 return False
             elif puzzle[j,i] != 0: #else add it to the check array, ignoring any 0's
                 nums.append(puzzle[j,i])
         nums.clear()
 
-    #check the sudoku "box"
+    #check each sudoku "box"
+    nums.clear()
+    for i in range (0, 7):
+        for j in range (0, 7):
+            for x in range (i, i + 3):
+                for y in range (j, j + 3):
+                    if puzzle[x ,y] in nums: #if this number already exists in the box, return false
+                        entries[x,y].config(background = "indianred3", disabledbackground = "indianred3")
+                        return False
+                    elif puzzle[x,y] != 0: #else add it to the check array, ignoring any 0's
+                        nums.append(puzzle[x,y])
+            nums.clear()
 
     return True
 
-
+#function to check each sudoku box for duplicate numbers
 #debug function to print puzzle to console
 def print_puzzle(puzzle):
     print()
