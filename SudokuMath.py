@@ -1,23 +1,22 @@
 #Haiden Gembinski
 #Math functionality for Python Sudoku solver
 
-
-
-def solve_sudoku(unsolved_puzzle, entries):
-    solve(unsolved_puzzle)
+def solve_sudoku(puzzle, entries):
+    solve(puzzle)
 
     #print the correct solutions to the board
     for row in range(0,9):
         for column in range (0,9):
-                num = unsolved_puzzle[(row, column)]
+                num = puzzle[(row, column)]
+                entries[(row, column)].delete(0)
                 entries[(row, column)].insert(0, str(num))
     
 
 
 #solves the sudoku puzzle
-def solve(unsolved_puzzle):
+def solve(puzzle):
 
-    next_blank = find_blank(unsolved_puzzle)
+    next_blank = find_blank(puzzle)
 
     if not next_blank:
         return True
@@ -26,13 +25,13 @@ def solve(unsolved_puzzle):
         row, column = next_blank
 
     for i in range(1,10):
-        if valid_number(unsolved_puzzle, i, next_blank):
-            unsolved_puzzle[row, column] = i
+        if valid_number(puzzle, i, next_blank):
+            puzzle[row, column] = i
 
-            if (solve(unsolved_puzzle)):
+            if (solve(puzzle)):
                 return True
 
-            unsolved_puzzle[row, column] = 0 #backtrack if i doesn't fit
+            puzzle[row, column] = 0 #backtrack if i doesn't fit
     return False
 
 #finds the next empty (represented as 0) space in the puzzle, returns None if one doesn't exist

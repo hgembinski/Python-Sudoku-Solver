@@ -1,11 +1,10 @@
 #Haiden Gembinski
 #GUI functionality for Python Sudoku Solver
 
-from SudokuMath import solve_sudoku
+from SudokuMath import *
+from SudokuDebug import *
 import tkinter
 from tkinter import *
-import SudokuDebug
-from SudokuDebug import *
 
 #function to build the main sudoku UI screen
 def build_ui():
@@ -54,7 +53,7 @@ def build_ui():
 
 #CLEAR button functionality -> clears the sudoku board
 def clear_UI_button(entries):
-    enable_board(entries)
+    wipe_board(entries)
     for row in range(0,9):
         for column in range (0,9):
             entries[row,column].config(background = "white")
@@ -72,30 +71,42 @@ def solve_button(entries, root):
             else:
                 if (check_num(entries[row,column].get())): #input validation
                     puzzle[(row, column)] = int(entries[row,column].get()) #insert each number as int in puzzle tuple
-                    entries[row,column].config(background = "white", disabledbackground = "light green") #sets the bg color to green if it's an inputted number
+                    entries[row,column].config(background = "light green", disabledbackground = "light green") #sets the bg color to green if it's an inputted number
                     entries[row,column].config(state='disabled')
                 else:
-                    entries[row,column].config(background = "indianred3") #sets the bg color to red if it's an errored number
+                    entries[row,column].config(background = "indianred3", disabledbackground = "indianred3") #sets the bg color to red if it's an errored number
                     enable_board(entries)
-                    invalid_input_screen(root)
+                    invalid_input_screen(root, entries)
                     return
 
     if check_puzzle(puzzle, entries):
         solve_sudoku(puzzle, entries)
-        #disable_board(entries)
+        disable_board(entries)
 
     else:
-        invalid_puzzle_screen(root) #show error screen if puzzle is invalid
+        invalid_puzzle_screen(root, entries) #show error screen if puzzle is invalid
 
 #re-enables the board and resets bg color of entry objects
-def enable_board(entries):
+def wipe_board(entries):
     for row in range(0,9):
         for column in range (0,9):
             entries[row,column].config(state='normal')
             entries[row,column].config(background = "white", disabledbackground = "white") #resets bg color
 
+#just re-enables the board without wiping
+def enable_board(entries):
+    for row in range(0,9):
+        for column in range (0,9):
+            entries[row,column].config(state='normal')
+
+#disables board
+def disable_board(entries):
+    for row in range(0,9):
+        for column in range (0,9):
+            entries[row,column].config(state='disabled')
+
 #Error screen for invalid puzzle input
-def invalid_input_screen(root):
+def invalid_input_screen(root, entries):
     error_screen = tkinter.Toplevel(root)
     error_screen.title("Error!")
 
@@ -109,10 +120,10 @@ def invalid_input_screen(root):
     error_label_1 = Label(error_screen, text = "Invalid Input", font = (None, 30), bg = "light blue", pady = 25).pack(fill = BOTH, side = TOP)
     error_label_2 = Label(error_screen, text = "Please Try Again", font = (None, 30), bg = "light blue", pady = 50).pack(fill = BOTH, side = TOP)
     close_button = Button(error_screen, width = 5, text = "Close", font = (None, 30), bg = "royal blue", 
-                    command = lambda : error_close_button(error_screen)).pack(side = TOP)
+                    command = lambda : error_close_button(error_screen, entries)).pack(side = TOP)
 
 #error screen if puzzle is invalid
-def invalid_puzzle_screen(root):
+def invalid_puzzle_screen(root, entries):
     error_screen = tkinter.Toplevel(root)
     error_screen.title("Error!")
 
@@ -127,11 +138,9 @@ def invalid_puzzle_screen(root):
     error_label_2 = Message(error_screen, text = "Did you accidentally input a duplicate number?", 
                     font = (None, 20), bg = "light blue", justify = CENTER, pady = 30).pack(fill = BOTH, side = TOP)
     close_button = Button(error_screen, width = 5, text = "Close", font = (None, 30), bg = "royal blue", 
-                    command = lambda : error_close_button(error_screen)).pack(side = TOP)
+                    command = lambda : error_close_button(error_screen, entries)).pack(side = TOP)
 
 #CLOSE button for error screen functionality -> closes error screen and re-enables board
-def error_close_button(error_screen):
+def error_close_button(error_screen, entries):
+    enable_board(entries)
     error_screen.destroy()
-
-
-    mainloop()
