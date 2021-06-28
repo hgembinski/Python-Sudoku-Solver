@@ -1,6 +1,7 @@
 #Haiden Gembinski
 #Math functionality for Python Sudoku solver
 
+#full solve function with output to GUI
 def solve_sudoku(puzzle, entries):
     solve(puzzle)
 
@@ -11,9 +12,7 @@ def solve_sudoku(puzzle, entries):
                 entries[(row, column)].delete(0)
                 entries[(row, column)].insert(0, str(num))
     
-
-
-#solves the sudoku puzzle
+#solves the sudoku puzzle tuple
 def solve(puzzle):
 
     next_blank = find_blank(puzzle)
@@ -68,4 +67,4 @@ def valid_number(puzzle, num, position):
             if puzzle[i, j] == num and row != i and column != j:
                 return False
    
-    return True #return true if everything checks out
+    return True

@@ -1,5 +1,5 @@
 #Haiden Gembinski
-#Error handling & Debug functionality for Python Sudoku solver
+#Validity check functions for python sudoku solver
 
 #check if valid number
 def check_num(num):
@@ -52,7 +52,6 @@ def check_puzzle(puzzle, entries):
 
     return True
 
-#function to check each sudoku box for duplicate numbers
 #debug function to print puzzle to console
 def print_puzzle(puzzle):
     print()
