@@ -39,15 +39,15 @@ def check_puzzle(puzzle, entries):
 
     #check each sudoku "box"
     nums.clear()
-    for i in range (0, 7):
-        for j in range (0, 7):
-            for x in range (i, i + 3):
-                for y in range (j, j + 3):
-                    if puzzle[x ,y] in nums: #if this number already exists in the box, return false
-                        entries[x,y].config(background = "indianred3", disabledbackground = "indianred3")
+    for i in range (0, 9, 3):
+        for j in range (0, 9, 3): #generate the coords of the upper-left most box of each sub square
+            for x in range (0, 3): #row offset
+                for y in range (0, 3): #column offset
+                    if puzzle[i + x ,j +y] in nums: #check every box of the sub square
+                        entries[i + x ,j +y].config(background = "indianred3", disabledbackground = "indianred3")
                         return False
-                    elif puzzle[x,y] != 0: #else add it to the check array, ignoring any 0's
-                        nums.append(puzzle[x,y])
+                    elif puzzle[i + x ,j +y] != 0: #else add it to the check array, ignoring any 0's
+                        nums.append(puzzle[i + x ,j +y])
             nums.clear()
 
     return True
