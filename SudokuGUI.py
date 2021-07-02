@@ -18,7 +18,7 @@ def clear_UI_button(entries):
 def solve_button(entries, root):
     puzzle = {}
 
-    #gets any inputted numbers from the UI and inserts them into the puzzle tuple (any blanks are replaced with 0)
+    #Gets any inputted numbers from the UI and inserts them into the puzzle tuple (any blanks are replaced with 0)
     for row in range(0,9):
         for column in range (0,9):
             if entries[row,column].get() == "":
@@ -41,20 +41,20 @@ def solve_button(entries, root):
     else:
         invalid_puzzle_screen(root, entries) #show error screen if puzzle is invalid
 
-#re-enables the board and resets bg color of entry objects
+#Re-enables the board and resets bg color of entry objects for a full wipe
 def wipe_board(entries):
     for row in range(0,9):
         for column in range (0,9):
             entries[row,column].config(state='normal')
             entries[row,column].config(background = "white", disabledbackground = "white") #resets bg color
 
-#just re-enables the board without wiping
+#Just re-enables the board without wiping
 def enable_board(entries):
     for row in range(0,9):
         for column in range (0,9):
             entries[row,column].config(state='normal')
 
-#disables board
+#Disables board
 def disable_board(entries):
     for row in range(0,9):
         for column in range (0,9):
@@ -77,7 +77,7 @@ def invalid_input_screen(root, entries):
     close_button = Button(error_screen, width = 5, text = "Close", font = (None, 30), bg = "royal blue", 
                     command = lambda : error_close_button(error_screen, entries)).pack(side = TOP)
 
-#Error screen if entire puzzle is invalid
+#Error screen if puzzle is invalid
 def invalid_puzzle_screen(root, entries):
     error_screen = tkinter.Toplevel(root)
     error_screen.title("Error!")
