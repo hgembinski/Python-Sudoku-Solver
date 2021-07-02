@@ -14,7 +14,7 @@ def check_num(num):
 
 #check if it's a valid puzzle ie no duplicate numbers
 def check_puzzle(puzzle, entries):
-    nums = []
+    nums = [] #to store numbers as func iterates through each row/column/sub square
 
     #check the rows
     for i in range(0, 9):
