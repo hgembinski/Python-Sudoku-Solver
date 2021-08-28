@@ -3,6 +3,7 @@ A simple sudoku puzzle solver with tkinter GUI and dynamic error feedback
 
 GUI created using Tkinter.
 
+### Screenshots ###
 <table>
   <tr>
     <td align="center"><b>Blank Puzzle</b></td>
