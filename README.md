@@ -21,3 +21,6 @@ GUI created using Tkinter.
     <td><img src="screenshots/error_highlight.png"</td>
   </tr>
  </table>
+ 
+ #To-Do
+ -Minor GUI adjustments
