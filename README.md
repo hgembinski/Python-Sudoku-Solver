@@ -22,5 +22,5 @@ GUI created using Tkinter.
   </tr>
  </table>
  
- #To-Do
+ ### To-Do ###
  -Minor GUI adjustments
