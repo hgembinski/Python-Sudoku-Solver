@@ -24,5 +24,5 @@ GUI created using Tkinter.
  </table>
  
  ## To-Do ##
- -Major refactoring -> seperate out GUI elements into their own proper class <br>
+ -Refactoring to seperate out GUI into its own class<br>
  -Minor GUI adjustments
