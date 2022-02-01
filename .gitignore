@@ -16,3 +16,4 @@ build/PythonSudoku/Tree-02.toc
 build/PythonSudoku/warn-PythonSudoku.txt
 build/PythonSudoku/xref-PythonSudoku.html
 dist/PythonSudoku.exe
+dist/PythonSudokuSolver.exe
